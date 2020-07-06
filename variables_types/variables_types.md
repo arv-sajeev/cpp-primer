@@ -99,3 +99,49 @@ void pointer -
 There are no limits to how many levels of indirection in pointers.
 * we can have a reference to a pointer
 * we can't have a pointer to a reference since it is not an object
+
+## The const qualifier
+
+We usually use const to prevent changing the value of a variable once it is assigned. Since 
+we can't change the value in C++ we need to initialize a const variable
+* const objects are local to a file by default
+* they are usually replaced by their value by preprocessors
+* we can make it available across multiple files by using extern even in the ***definition*** and declaration 
+
+### References to const
+
+Like any other object we can bind references to a const object 
+* the const property still applies to the reference to the const, 
+* you can't  assign a non-const reference to a const object
+* the reference must have const in it's declaration as well
+* we can use a cost reference to bind to a non-const object but this ref can't be used to make changes
+
+### Pointers and const
+
+This stuff is quite confusing use the spiral rule to find what the declaration means.
+
+#### pointer to const
+
+Stuff defined like `const <type> *<var-name>` is a pointer to a constant of the specified type
+* Changing the value of the object pointed to is illegal. i.e. you can't dereference then assign to it
+* you can still change the reference the object is made to.
+* also called low level const
+
+#### const pointer
+
+Things that are defined like `<type> * const <var-name>`
+* Changing the object that is referenced by the variable is illegal
+* you can change the contents of the object referenced by the variable
+* also called top level const
+
+### constexpr and Constant expressions
+A constant expression is an expression whose value cannot change and can be calculated at
+compile time. 
+
+* A literal is a constant expression 
+* a const that is initialized by a constant expression  is a constant expression 
+
+We use it to make sure that the const's that we define are initialized by a constant expression.
+
+* we can only on define constexpr pointers to objects that we know will not change
+
