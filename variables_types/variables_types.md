@@ -145,3 +145,24 @@ We use it to make sure that the const's that we define are initialized by a cons
 
 * we can only on define constexpr pointers to objects that we know will not change
 
+### Type aliases
+
+A type alias is a name that is a synonym for another type. We can define type aliases in 
+2 ways :
+* ***typedef*** can be used as part of the base type of a declaration to define aliases rather than variables, the declaration can have type modifiers.
+* ***using*** the using keyword can be used to assign aliases to types
+
+### The auto type specifier
+
+To store a value we need to declare a variable and do so we need to know the type. In cases
+where it is difficult to determine the type. From c++11 onwards we can let the compiler
+figure out the type.
+
+Like all other types we can define multiple variables using auto, but the declaration can only consist of a single base type. For e.g. consider the following declaration
+`auto sz = 0,pi = 3.14;` this is invalid since the declaration has multiple case types
+
+### The decltype type specifier
+
+In auto we use the expression that initializes the variable to deduce type. When we want to
+deduce type as per an expression but not initialize it by type, we use the decltype() function which returns the type of its operand.
+* the compiler analyzes the expression in the decltype but doesn't evaluate it
