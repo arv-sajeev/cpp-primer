@@ -52,7 +52,7 @@ this.
 ### Returning a pointer to an array
 
 Before looking at how to return arrays we'll have a look into different ways defining an array
-* ```C int arr[10];``` - an array of 10 integers called arr
+* ```cpp int arr[10];``` - an array of 10 integers called arr
 
 
   
