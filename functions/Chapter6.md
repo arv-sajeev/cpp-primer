@@ -41,5 +41,18 @@ using normal references may confuse people who are going to use your function an
 pass const objects references to the function even though semantically you planned to allow
 this.
 
+## How values are returned
+
+* The return value is used to initialize a temporary at the call site, and that temp is the result of the function call. 
+* Because of this make sure you never return references or pointers to a object local to a function. 
+* All functions with a return type must return a value before they terminate except the main which is an exception.
+* Whether a function is an l-value or not depends on the return type.
+* If the return type is a reference it is an l-value by default
+
+### Returning a pointer to an array
+
+Before looking at how to return arrays we'll have a look into different ways defining an array
+* ```C int arr[10];``` - an array of 10 integers called arr
+
 
   
