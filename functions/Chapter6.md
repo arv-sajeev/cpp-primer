@@ -75,3 +75,67 @@ are said to be overloaded. Overloading is only done when the parameter lists are
 else a compiler error is raised.
 * top level consts on a type are not considered different
 * const and nonconst references are considered different
+
+## Special features
+
+A few features that are useful in many programs
+
+### Default arguments
+
+Some functions are given a particular value in most calls we can supply a default argument
+if it is not supplied. Local variables cannot be used as a default argument, any other 
+expression that has a type that can be converted to the type of the argument can be used.
+
+### Inline and constexpr functions
+
+Sometimes we define functions for very small tasks to just make sure they are done the same
+way throughout, but if this function is to be called regularly and is quite small then the
+overhead to execute the function call may become very high.
+
+We can define a function as inline using the inline modifier in its definition.
+
+```cpp
+	inline const string &
+	shorter_string(const string &s1,const string &s2)
+	{
+		return s1.size() <= s2.size() ? s1 : s2;
+	}
+```
+
+Now whenever this function is encountered the compiler instead of using a function call there
+uses sometime similar to macro expansion so a function call is not made. The choice to use
+an inline function depends on how large the function is. It is stupid to use inline for large
+functions as the compiler will have to replace that much more extra code increasing the size greatly.
+
+```cpp
+	cout << shorter_string(s1,s2) << endl;
+	// This may get converted by the compiler to 
+	cout << (s1.size() < s2.size() ? s1 : s2) << endl;
+```
+
+### constexpr functions
+
+These are functions that can be used in a constexpr, it is simply a function with a constexpr
+modifier but it has to comply to certain restrictions.The return type must be literal and 
+there must only be one return type. A constexpr function doesn't have to return a constexpr.
+
+---
+
+## Function matching
+
+The rules that determine which of the given functions is chosen as the overloaded function
+when a function call is made.
+* The first step of function matching identifies the set of overloaded functions considered for the call. The functions in this set are __candidate functions__, any function with the same name and visible at the point of the call are called candidate functions.
+* The second step further selects functions from the candidate functions, which have the same number of parameters and arguments in the call and the type of each argument must match or at least have valid conversion to the type of the parameter.
+* The third step consists of finding which has the best match, functions without conversion are a better match than those with conversion.
+* function matching becomes more complicated if there are multiple arguments.
+
+## Pointers to functions
+
+A function pointer is a pointer that denotes a function, rather than an object. A function 
+pointer like any other pointer has a type, determined by the return type and type of 
+parameters.
+
+* In C++ assigning the address of a function the address operator is optional
+* we can have parameters that are pointers to functions
+* we can return function pointers
